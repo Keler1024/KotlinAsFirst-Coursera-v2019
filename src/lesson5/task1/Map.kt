@@ -2,6 +2,9 @@
 
 package lesson5.task1
 
+import java.lang.Integer.max
+
+
 /**
  * Пример
  *
@@ -280,4 +283,40 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+    if (treasures.isEmpty()) return setOf()
+    val n = treasures.size
+    val m = Array(n + 1) { IntArray(capacity + 1) { j -> 0 } }
+    val treasuresList = treasures.toList().toMutableList()
+    treasuresList.add(0, "placeholder" to (0 to 0))
+    val result = mutableSetOf<String>()
+
+    for (i in 1..n) {
+        for (j in 0..capacity) {
+            if (treasuresList[i].second.first <= j) {
+                m[i][j] = max(m[i - 1][j], m[i - 1][j - treasuresList[i].second.first] + treasuresList[i].second.second)
+            } else {
+                m[i][j] = m[i - 1][j]
+            }
+        }
+    }
+    findResult(m, treasuresList, n, capacity, result)
+    return result
+}
+
+fun findResult(
+    m: Array<IntArray>,
+    treasuresList: List<Pair<String, Pair<Int, Int>>>,
+    k: Int,
+    s: Int,
+    result: MutableSet<String>
+) {
+    if (m[k][s] == 0) return
+    if (m[k - 1][s] == m[k][s]) findResult(m, treasuresList, k - 1, s, result)
+    else {
+        findResult(m, treasuresList, k - 1, s - treasuresList[k].second.first, result)
+        result.add(treasuresList[k].first)
+    }
+
+}
+

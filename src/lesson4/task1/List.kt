@@ -245,4 +245,210 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val number = n.toString()
+//    val units = listOf<String>("ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+//    val tens = listOf<String>("десять", "сто", "тысяча")
+//    val specials = listOf(
+//        "одиннадцать", "двенадцать", "тринадцать", "четырнадцать",
+//        "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"
+//    )
+    val parts = mutableListOf<String>()
+    if (n > 999) {
+        parts.add(number.slice((number.length - 3) until number.length))
+        parts.add(number.slice(0 until (number.length - 3)))
+    } else {
+        parts.add(number)
+    }
+    val results = mutableListOf<String>()
+    var thousands = false
+    for (part in parts) {
+        var result = ""
+        if (part.length == 1) {
+            if (thousands) {
+                result = when (part[part.length - 1]) {
+                    '0' -> ""
+                    '1' -> "одна"
+                    '2' -> "две"
+                    '3' -> "три"
+                    '4' -> "четыре"
+                    '5' -> "пять"
+                    '6' -> "шесть"
+                    '7' -> "семь"
+                    '8' -> "восемь"
+                    '9' -> "девять"
+                    else -> "went wrong"
+                }
+            } else {
+                result = when (part[part.length - 1]) {
+                    '0' -> ""
+                    '1' -> "один"
+                    '2' -> "два"
+                    '3' -> "три"
+                    '4' -> "четыре"
+                    '5' -> "пять"
+                    '6' -> "шесть"
+                    '7' -> "семь"
+                    '8' -> "восемь"
+                    '9' -> "девять"
+                    else -> "went wrong"
+                }
+            }
+        }
+        if (part.length == 2) {
+            if (part[part.length - 2] == '1') {
+                result = when (part[part.length - 1]) {
+                    '0' -> ""
+                    '1' -> "одинадцать"
+                    '2' -> "двенадцать"
+                    '3' -> "тринадцать"
+                    '4' -> "четырнадцать"
+                    '5' -> "пятнадцать"
+                    '6' -> "шестнадцать"
+                    '7' -> "семнадцать"
+                    '8' -> "восемнадцать"
+                    '9' -> "девятнадцать"
+                    else -> "went wrong"
+                }
+            } else {
+                if (thousands) {
+                    result = when (part[part.length - 1]) {
+                        '0' -> ""
+                        '1' -> "одна"
+                        '2' -> "две"
+                        '3' -> "три"
+                        '4' -> "четыре"
+                        '5' -> "пять"
+                        '6' -> "шесть"
+                        '7' -> "семь"
+                        '8' -> "восемь"
+                        '9' -> "девять"
+                        else -> "went wrong"
+                    }
+                } else {
+                    result = when (part[part.length - 1]) {
+                        '0' -> ""
+                        '1' -> "один"
+                        '2' -> "два"
+                        '3' -> "три"
+                        '4' -> "четыре"
+                        '5' -> "пять"
+                        '6' -> "шесть"
+                        '7' -> "семь"
+                        '8' -> "восемь"
+                        '9' -> "девять"
+                        else -> "went wrong"
+                    }
+                }
+                val ten = when (part[part.length - 2]) {
+                    '0' -> ""
+                    '1' -> "десять"
+                    '2' -> "двадцать"
+                    '3' -> "тридцать"
+                    '4' -> "сорок"
+                    '5' -> "пятьдесят"
+                    '6' -> "шестьдесят"
+                    '7' -> "семьдесят"
+                    '8' -> "восемьдесят"
+                    '9' -> "девяносто"
+                    else -> "went wrong"
+                }
+                if (ten.isNotEmpty()) result = "$ten $result"
+            }
+        }
+        if (part.length == 3) {
+            if (part[part.length - 2] == '1') {
+                result = when (part[part.length - 1]) {
+                    '0' -> ""
+                    '1' -> "одинадцать"
+                    '2' -> "двенадцать"
+                    '3' -> "тринадцать"
+                    '4' -> "четырнадцать"
+                    '5' -> "пятнадцать"
+                    '6' -> "шестнадцать"
+                    '7' -> "семнадцать"
+                    '8' -> "восемнадцать"
+                    '9' -> "девятнадцать"
+                    else -> "went wrong"
+                }
+            } else {
+                if (thousands) {
+                    result = when (part[part.length - 1]) {
+                        '0' -> ""
+                        '1' -> "одна"
+                        '2' -> "две"
+                        '3' -> "три"
+                        '4' -> "четыре"
+                        '5' -> "пять"
+                        '6' -> "шесть"
+                        '7' -> "семь"
+                        '8' -> "восемь"
+                        '9' -> "девять"
+                        else -> "went wrong"
+                    }
+                } else {
+                    result = when (part[part.length - 1]) {
+                        '0' -> ""
+                        '1' -> "один"
+                        '2' -> "два"
+                        '3' -> "три"
+                        '4' -> "четыре"
+                        '5' -> "пять"
+                        '6' -> "шесть"
+                        '7' -> "семь"
+                        '8' -> "восемь"
+                        '9' -> "девять"
+                        else -> "went wrong"
+                    }
+                }
+                val ten = when (part[part.length - 2]) {
+                    '0' -> ""
+                    '1' -> "десять"
+                    '2' -> "двадцать"
+                    '3' -> "тридцать"
+                    '4' -> "сорок"
+                    '5' -> "пятьдесят"
+                    '6' -> "шестьдесят"
+                    '7' -> "семьдесят"
+                    '8' -> "восемьдесят"
+                    '9' -> "девяносто"
+                    else -> "went wrong"
+                }
+                if (ten.isNotEmpty()) result = "$ten $result"
+            }
+
+            val hundred = when (part[part.length - 3]) {
+                '0' -> ""
+                '1' -> "сто"
+                '2' -> "двести"
+                '3' -> "триста"
+                '4' -> "четыреста"
+                '5' -> "пятьсот"
+                '6' -> "шестьсот"
+                '7' -> "семьсот"
+                '8' -> "восемьсот"
+                '9' -> "девятьсот"
+                else -> "went wrong"
+            }
+            if (hundred.isNotEmpty()) result = "$hundred $result"
+        }
+
+        results.add(result)
+
+        thousands = true
+    }
+
+    var resultString = ""
+    if (parts.size == 2) {
+        if (number[number.length - 4] == '1') resultString = results[1] + " тысяча " + results[0]
+        if (number[number.length - 4] in listOf('2', '3', '4')) resultString = results[1] + " тысячи " + results[0]
+        if (number[number.length - 4] in listOf('0', '5', '6', '7', '8', '9')) resultString =
+            results[1] + " тысяч " + results[0]
+        if (number.length > 4) {
+            if (number[number.length - 5] == '1') resultString = results[1] + " тысяч " + results[0]
+        }
+    } else resultString = results[0]
+    resultString = resultString.replace("\\s+".toRegex(), " ")
+    resultString = resultString.trimEnd(' ')
+    return resultString
+}

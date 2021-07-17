@@ -67,7 +67,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var ndigits = 0
+    var number = n
+    do {
+        ndigits += 1
+        number /= 10
+    } while (number != 0)
+    return ndigits
+}
+
 
 /**
  * Простая
@@ -75,7 +84,18 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var current = 1
+    var prev = 1
+    for (i in 3..n) {
+        current += prev
+        prev = current - prev
+    }
+    return current
+//    return if (n !in 1..2) {
+//        fib(n - 2) + fib(n - 1)
+//    } else 1
+}
 
 /**
  * Простая
@@ -185,7 +205,15 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var number = n
+    val digit = n % 10
+    while (number > 9) {
+        number /= 10
+        if (number % 10 != digit) return true
+    }
+    return false
+}
 
 /**
  * Сложная
@@ -196,7 +224,22 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var nLeft = n
+    var numberIndex = 0
+    var sqrNumber = 1
+    while (nLeft > 0) {
+        numberIndex += 1
+        sqrNumber = numberIndex * numberIndex
+        val sqrDigits = digitNumber(sqrNumber)
+        nLeft -= sqrDigits
+    }
+    while (nLeft < 0) {
+        sqrNumber /= 10
+        nLeft += 1
+    }
+    return sqrNumber % 10
+}
 
 /**
  * Сложная
@@ -207,4 +250,19 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var nLeft = n
+    var numberIndex = 0
+    var fibNumber = 1
+    while (nLeft > 0) {
+        numberIndex += 1
+        fibNumber = fib(numberIndex)
+        val fibDigits = digitNumber(fibNumber)
+        nLeft -= fibDigits
+    }
+    while (nLeft < 0) {
+        fibNumber /= 10
+        nLeft += 1
+    }
+    return fibNumber % 10
+}
